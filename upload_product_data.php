@@ -1,8 +1,8 @@
 <?php
 	session_start();
-	if (isset($_FILES["product_image"])){
-		echo "YES";
-	}
+	//if (isset($_FILES["product_image"])){
+	//	echo "YES";
+	//}
 	$product_name = $_POST["product_name"];
 	$product_price = $_POST["product_price"];
 	$product_stock = $_POST["product_stock"];
