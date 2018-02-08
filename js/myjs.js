@@ -154,7 +154,7 @@
 			}
 		}
 		
-		
+		var start = 1;		
 		var tr,td,newdiv;
 		var array = [];
 		var product_type=[];
@@ -167,14 +167,122 @@
 				make_fields();
 			}
 			catch(err){
-				var start=1;
 				var count = document.getElementById('product_type').value;
 				array.push(count);
 				if (array[0] != count){remove_fields(array[0]);}
 				newdiv=document.createElement('div');
 				newdiv.setAttribute("id", "div_in");
 				document.getElementById('type').appendChild(newdiv);
-				while(start<=count){
+
+				/*tr = document.createElement('tr');
+				td = document.createElement('td');
+				var x= 'product'+start;
+				tr.setAttribute("id", "tr"+start);
+				td.setAttribute('id', 'td'+start);
+				td.innerHTML = x + "<input type='text' id="+x+" name="+x+" onfocusout='product_names("+start+");' required/>";
+				document.getElementById('div_in').appendChild(tr);
+				document.getElementById('tr'+start).appendChild(td);*/
+
+				var second_div=document.createElement('div');
+				second_div.setAttribute('id','second_div');
+				second_div.style.display='none';
+				document.getElementById('hidden_second').style.display='block';
+				document.getElementById('hidden_second').appendChild(second_div);
+				var header_second_div=document.createElement('header');
+				header_second_div.setAttribute('id','header_second_div');
+				second_div.appendChild(header_second_div);
+				header_second_div.innerHTML='<h3>Step 2</h3>';
+				var header,p,newdiv1,table,tr,td1,td2,newdiv2;
+				var in_second_div = document.createElement('div');
+				in_second_div.setAttribute('id','in_second_div');
+				second_div.appendChild(in_second_div);
+				
+				header=document.createElement('header');
+				header.setAttribute('id','header'+(start));
+				in_second_div.appendChild(header);
+				p=document.createElement('p');
+				p.setAttribute('id','p'+(start));
+				header.appendChild(p);
+				//document.getElementById('p'+(start)).innerHTML='Product Type -> '+product_type[start-1];
+				document.getElementById('header'+(start)).appendChild(p);
+				newdiv1=document.createElement('div');
+				newdiv1.setAttribute('id','in_in_second_div'+(start));
+				newdiv1.setAttribute('class','12u 12u$(4)');
+				in_second_div.appendChild(newdiv1);
+				table=document.createElement('table');
+				table.setAttribute('id','table'+(start));
+				newdiv1.appendChild(table);
+				tr=document.createElement('tr');
+				tr.setAttribute('id','table'+start+'tr');
+				table.appendChild(tr);
+				td1=document.createElement('td');
+				td1.setAttribute('id','table'+start+'td1');
+				tr.appendChild(td1);
+				document.getElementById('table'+start+'td1').innerHTML='Choose Fields to Represent Product : Product' +start;
+				td2=document.createElement('td');
+				td2.setAttribute('id','table'+start+'td2');
+				tr.appendChild(td2);
+				newdiv2=document.createElement('div');
+				newdiv2.setAttribute('id','in_in_in_second_div'+(start));
+				newdiv2.setAttribute('class','9u 12u$(3)');
+				
+				newdiv2.innerHTML='<form enctype="multipart/form-data" method="post" name="data_product" id="data_product" action="upload_product_data.php">'+
+					'<input type="text" id="product_name" name="product_name" required/><label>Product name<font Size="5" Color="red">*</font></label>'+
+					'<input type="text" id="product_price" name="product_price" required/><label>Product price<font Size="5" Color="red">*</font></label>'+
+					'<input type="text" id="product_stock" name="product_stock" required/><label>Product stock<font Size="5" Color="red">*</font></label>'+
+					'<input type="text" id="product_threshold" name="product_threshold" required/><label>Product threshold (it will notify when stock reaches threshold)<font Size="5" Color="red">*</font></label>'+
+					'<input type="file" id="product_image" name="product_image" accept="image/*" required/><label>Product image<font Size="5" Color="red">*</font></label>'+
+					'<input type="text" id="product_id" name="product_id"><label>Product id</label>'+
+					'<input type="text" id="product_brand" name="product_brand"><label>Product brand</label>'+
+					'<input type="text" id="product_size" name="product_size" placeholder="width x height x depth"><label>Product size</label>'+
+					'<input type="text" id="product_description" name="product_description"><label>Product description</label>'+
+					'<input type="text" id="product_gender" name="product_gender"><label>Product gender</label>'+
+					'<input type="text" id="product_offer_price" name="product_offer_price"><label>Product offer price</label>'+
+					'<input type="text" id="product_offer_percentage" name="product_offer_percentage"><label>Product offer in percentage(%)</label>'+
+					'<input type="text" id="product_color" name="product_color"><label>Product color</label>'+
+					'</form>';
+				
+				if (start < count){
+					var button = document.createElement("BUTTON");
+					var button_name = document.createTextNode("Next entry");
+					button.onclick = function(){
+						start++;
+						if (document.getElementById('product_name').value==''){
+							alert('Please enter product name!');
+							document.getElementById('product_name').focus();
+							return false;
+						}
+						else if (document.getElementById('product_price').value=='' || isNaN(document.getElementById('product_price').value)){
+							alert('Please enter product price!');
+							document.getElementById('product_price').focus();
+							return false;
+						}
+						else if (document.getElementById('product_stock').value=='' || isNaN(document.getElementById('product_stock').value)){
+							alert('Please enter product stock!');
+							document.getElementById('product_stock').focus();
+							return false;
+						}
+						else if (document.getElementById('product_threshold').value=='' || isNaN(document.getElementById('product_threshold').value)){
+							alert('Please enter product threshold!');
+							document.getElementById('product_threshold').focus();
+							return false;
+						}
+
+						document.data_product.submit();
+
+						make_fields();
+					};
+					button.appendChild(button_name);
+				}
+				//newdiv2.innerHTML='<input type="checkbox" id="p'+start+'_id" name="p'+start+'_id"><label for="p'+start+'_id">Product Id</label><input type="checkbox" id="p'+start+'_name" name="p'+start+'_name"><label for="p'+start+'_name">Product Name</label><input type="checkbox" id="p'+start+'_brand" name="p'+start+'_brand"><label for="p'+start+'_brand">Product Brand</label><input type="checkbox" id="p'+start+'_img" name="p'+start+'_img"><label for="p'+start+'_img">Product Image</label><input type="checkbox" id="p'+start+'_description" name="p'+start+'_description"><label for="p'+start+'_description">Product Description</label><input type="checkbox" id="p'+start+'_reviews" name="p'+start+'_reviews"><label for="p'+start+'_reviews">Product Reviews</label><input type="checkbox" id="p'+start+'_rating" name="p'+start+'_rating"><label for="p'+start+'_rating">Product Ratings</label><input type="checkbox" id="p'+start+'_size" name="p'+start+'_size"><label for="p'+start+'_size">Product Size</label><input type="checkbox" id="p'+start+'_sex" name="p'+start+'_sex"><label for="p'+start+'_sex">Product Gender</label><input type="checkbox" id="p'+start+'_price" name="p'+start+'_price"><label for="p'+start+'_price">Product Price</label><input type="checkbox" id="p'+start+'_offer_price" name="p'+start+'_offer_price"><label for="p'+start+'_offer_price">Product Offer_Price</label><input type="checkbox" id="p'+start+'_color" name="p'+start+'_color"><label for="p'+start+'_color">Product Color</label><input type="checkbox" id="p'+start+'_percent_offer" name="p'+start+'_percent_offer"><label for="p'+start+'_percent_offer">Product Offer(%)</label>';
+				td2.appendChild(newdiv2);
+				if (start < count)
+					td2.appendChild(button);
+				document.getElementById('second_div').style.display='block';
+
+				//start++;
+
+				/*while(start<=count){
 					tr = document.createElement('tr');
 					td = document.createElement('td');
 					var x= 'product'+start;
@@ -184,7 +292,7 @@
 					document.getElementById('div_in').appendChild(tr);
 					document.getElementById('tr'+start).appendChild(td);
 					start++;
-				}
+				}*/
 			}
 			
 		}
@@ -217,11 +325,9 @@
 		
 		
 		function last_check(){
-			count=array[0];
 			var start=0;
 			var pattern=/^[A-Za-z0-9']+(\s{0,1}[A-Za-z0-9'])*$/;
 			var shopname = document.getElementById('shopname').value;
-			start=0;
 			if(shopname==''){
 				alert("Please Enter Shop Name");
 				document.getElementById("shopname").focus();
@@ -240,11 +346,12 @@
 				return false;
 			}
 			if(document.getElementById('product_type').value==''){
-				alert("Please Select Product Type!");
+				alert("Please Select how many Products!");
 				document.getElementById("product_type").focus();
 				return false;
 			}
-			while(start<count){
+			make_fields();
+			/*while(start<count){
 					var x=product_type[start];
 					if(x==''){
 						alert("Please Enter Product"+(start+1)+" Name");
@@ -262,7 +369,7 @@
 						return false;
 					}
 					start++;
-				}
+				}*/
 		}
 		
 		
@@ -292,46 +399,25 @@
 		
 		
 		function product_names(n){
-			if(n==1){
-				if(document.getElementById('shopname').value==document.getElementById('product1').value){
-					alert("Products and shop must have different names");
-					document.getElementById('product1').value='';
-					document.getElementById("product"+(n)).focus();
+			var count2 = 1;
+
+			if(document.getElementById('shopname').value==document.getElementById('product'+n).value){
+				alert("Products and shop must have different names");
+				document.getElementById('product'+n).value='';
+				document.getElementById('product'+n).focus();
+				return false;
+			}
+
+			while (count2 < n){
+				if (document.getElementById('product'+(count2)).value==document.getElementById('product'+(n)).value){
+					alert("Products must have different names product"+count2+" and product"+n+" have same name!");
+					document.getElementById('product'+n).value='';
+					document.getElementById("product"+n).focus();
 					return false;
 				}
+				count2++;
 			}
-			else if(n==2){
-				if((document.getElementById('product2').value==document.getElementById('product1').value) || (document.getElementById('shopname').value==document.getElementById('product2').value)){
-					alert("Products and shop must have different names");
-					document.getElementById('product2').value='';
-					document.getElementById("product"+(n)).focus();
-					return false;
-				}
-			}
-			else if(n==3){
-				if((document.getElementById('product3').value==document.getElementById('product2').value) || (document.getElementById('product3').value==document.getElementById('product1').value) || (document.getElementById('shopname').value==document.getElementById('product3').value)){
-					alert("Products must have different names");
-					document.getElementById('product3').value='';
-					document.getElementById("product"+(n)).focus();
-					return false;
-				}
-			}
-			else if(n==4){
-				if((document.getElementById('product4').value==document.getElementById('product3').value) || (document.getElementById('product4').value==document.getElementById('product2').value) || (document.getElementById('product4').value==document.getElementById('product1').value) || (document.getElementById('shopname').value==document.getElementById('product4').value)){
-					alert("Products must have different names");
-					document.getElementById('product4').value='';
-					document.getElementById("product"+(n)).focus();
-					return false;
-				}
-			}
-			else if(n==5){
-				if((document.getElementById('product5').value==document.getElementById('product4').value) || (document.getElementById('product5').value==document.getElementById('product3').value) || (document.getElementById('product5').value==document.getElementById('product2').value) || (document.getElementById('product5').value==document.getElementById('product1').value) || (document.getElementById('shopname').value==document.getElementById('product5').value)){
-					alert("Products must have different names");
-					document.getElementById('product5').value='';
-					document.getElementById("product"+(n)).focus();
-					return false;
-				}
-			}
+		
 			if(n==document.getElementById('product_type').value){
 				start=0;
 				while(start<n){

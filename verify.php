@@ -13,6 +13,9 @@ if(isset($_GET['user']) && !empty($_GET['user']) AND isset($_GET['hash']) && !em
 		$db_user=$res['User_name'];
 		if($hash == openssl_encrypt($db_pwd,"AES-128-ECB",$db_user)){
 			$q=mysql_query("UPDATE user SET Active='1' WHERE User_name='".$user."' AND Active='0'");
+			mkdir('user_folders/'.$user);
+			$file = fopen('user_folders/'.$user.'/product_data.json', 'w');
+			fclose($file);
 			echo '<script language="javascript">
 			alert("Your Account Is Successfully Verified!!!Now You Can Log In with Your Credentials!")
 			window.location.href="login.php"

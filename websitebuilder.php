@@ -38,7 +38,7 @@ if(!isset($_SESSION["username"])){
 						<li><a href="#">Website Builder</a></li>
 						<?php 
 						if(isset($_SESSION["username"])){
-							echo '<li><a href="logout.php" class="button special" rel="nofollow" onClick="return confirm(\'Do You Really Want To LogOut??\');">LogOUT</a></li>';
+							echo '<li><a href="logout.php" class="button special" rel="nofollow" onClick="return confirm(\'Do You Really Want To logout??\');">Logout</a></li>';
 						}
 						else{
 							echo '<li><a href="login.php" class="button special">Sign Up/In</a></li>';
@@ -70,7 +70,9 @@ if(!isset($_SESSION["username"])){
 							<td>How Many Types Of Products You Want In Your Shop? </td>
 							<td>
 							<div name='type' id='type' class="10u$">
-							<div class="select-wrapper">
+							<input type="text" name="product_type" id="product_type" onchange="make_fields();" required/>
+							
+							<!--<div class="select-wrapper">
 								<select name="product_type" id="product_type" onchange='make_fields();' onfocus='check_data_shop();'>
 								  <option value="">- Types -</option>
 								  <option value="1">1</option>
@@ -80,6 +82,7 @@ if(!isset($_SESSION["username"])){
 								  <option value="5">5</option>
 								  </select>
 							</div>
+							-->
 							</div>
 							</td></tr>
 							</table>

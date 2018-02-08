@@ -1,5 +1,6 @@
 <?php session_start(); 
 if(!isset($_SESSION["username"])){
+	$_SESSION['go']=1;
 	echo '<script language="javascript">
 	alert("You need to Sign In to use this feature!!!")
 	window.location.href="login.php"
@@ -37,7 +38,7 @@ if(!isset($_SESSION["username"])){
 						<li><a href="#">Website Builder</a></li>
 						<?php 
 						if(isset($_SESSION["username"])){
-							echo '<li><a href="logout.php" class="button special" rel="nofollow" onClick="return confirm(\'Do You Really Want To LogOut??\');">LogOUT</a></li>';
+							echo '<li><a href="logout.php" class="button special" rel="nofollow" onClick="return confirm(\'Do You Really Want To logout??\');">Logout</a></li>';
 						}
 						else{
 							echo '<li><a href="login.php" class="button special">Sign Up/In</a></li>';
@@ -55,19 +56,46 @@ if(!isset($_SESSION["username"])){
 						<h2>Builder</h2>
 						<p>Here Shop Goes Online</p>
 					</header>
-
-					<form method="post" name='signup' action="userdb.php">
+					<form method="post" name='builder' action="">
 				
-					<div align='center 70%'>
-						<div class="9u 12u$(4)">
+					<div id='main_div' align='center'>
+					<div id='first_div'>
+						<header>
+						<h3>Step 1</h3>
+						</header>
+						<div class="12u 12u$(4)">
 							<table>
-							<tr><td>Your Shop Name</td><td><input type="text" name="shopname" id="shopname"  placeholder="Shop Name" required /></td></tr>
+							<tr><td>Your Shop Name</td><td><input type="text" name="shopname" id="shopname"  placeholder="Shop Name"  required /></td></tr>
+							<tr>
+							<td>How Many Types Of Products You Want In Your Shop? </td>
+							<td>
+							<div name='type' id='type' class="10u$">
+							<input type="text" name="product_type" id="product_type" required/>
+							
+							<!--<div class="select-wrapper">
+								<select name="product_type" id="product_type" onchange='make_fields();' onfocus='check_data_shop();'>
+								  <option value="">- Types -</option>
+								  <option value="1">1</option>
+								  <option value="2">2</option>
+								  <option value="3">3</option>
+								  <option value="4">4</option>
+								  <option value="5">5</option>
+								  </select>
+							</div>
+							-->
+							</div>
+							</td></tr>
 							</table>
 						</div>
+						</div>
+						<!-- <div id="next_button_div" style="display:none;">
+							<input type="button" id="next_button" name="next_button" value="next entry" class="special">
+						</div> -->
+						<div id='hidden_second' style='display:none;'></div>
 						<div class="12u$">
 							<ul class="actions">
-								<li><input type="button" value="Build!" class="special" onClick="check_data_shop();"/></li>
-								<li><input type="reset" value="Reset"/></li>
+								<li><input type="button" id='submit_button' name='next_button' value="Submit" class="special" onclick='last_check();' /></li>
+								<li><input type="button" id='reset_button' name='reset_button' value="Reset" onclick='form_reset();'/></li>
 							</ul>
 						</div>
 					</div>
@@ -102,12 +130,12 @@ if(!isset($_SESSION["username"])){
 							<section class="3u$ 6u$(medium) 12u$(small)">
 								<h3>Contact Us</h3>
 								<ul class="unstyled">
-									<li><a>onlineshopmaker_queries@gmail.com</a></li>
+									<li><a>mail@onlineshopmaker.dx.am</a></li>
 									<li><a>(+91)9427606780</a></li>
 									<li><a>(+91)9408640023</a></li>
 								</ul>
 							</section>
-						</div>
+							</div>
 					</section>
 					<div class="row">
 						<div class="8u 12u$(medium)">
@@ -135,6 +163,13 @@ if(!isset($_SESSION["username"])){
 					</div>
 				</div>
 			</footer>
-
-	</body>
-</html>
+					
+					
+							<?php  
+if(!isset($_SESSION["username"])){
+	echo '<script language="javascript">
+	alert("You need to Sign In to use this feature!!!")
+	window.location.href="login.php"
+	</script>';
+}
+?>
