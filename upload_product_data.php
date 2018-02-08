@@ -24,7 +24,7 @@
 
 	$path = "user_folders/".$user."/images/".$product_image;
 	$copy = copy($_FILES['product_image']['tmp_name'], $path);
-	$file = fopen('user_folders/'.$user.'/product_data.json', 'a');
+	$file = fopen('user_folders/'.$user.'/product_data.json', 'w');
 	/*$string = '{'.(string)$product_name.' : {'.
 		'product_price : '.(string)$product_price.','.
 		'product_stock : '.(string)$product_stock.','.
@@ -40,12 +40,16 @@
 		'product_color : '.$product_color.','.
 		'}'.
 	'}';*/
-
-	$string[] = array('product_price' => (string)$product_price, 'product_stock' => (string)$product_stock, 'product_threshold' => (string)$product_threshold, 'product_image' => (string)$product_image, 'product_id' => (string)$product_id, 'product_brand' => (string)$product_brand, 'product_size' => $product_size, 'product_description' => (string)$product_description, 'product_gender' => (string)$product_gender, 'product_offer_price' => (string)$product_offer_price, 'product_offer_percentage' => (string)$product_offer_percentage, 'product_color' => (string)$product_color); 
-
+	if(!isset($_SESSION["json_str"])){
+		$_SESSION["json_str"] = array();
+	}
+	$string = array('product_price' => (string)$product_price, 'product_stock' => (string)$product_stock, 'product_threshold' => (string)$product_threshold, 'product_image' => (string)$product_image, 'product_id' => (string)$product_id, 'product_brand' => (string)$product_brand, 'product_size' => $product_size, 'product_description' => (string)$product_description, 'product_gender' => (string)$product_gender, 'product_offer_price' => (string)$product_offer_price, 'product_offer_percentage' => (string)$product_offer_percentage, 'product_color' => (string)$product_color); 
 	$json_str[(string)$product_name] = $string; 
-
-	fwrite($file, json_encode($json_str));
+	$_SESSION['json_str'] = array_merge($_SESSION['json_str'],$json_str);
+	// i have a idea but i think you should do it 
+	//get a shop name from anywhere (add a input text make its visibility hidden and set its value to shopname and add it to your form this form and then fetch the value of that )
+	//then take a master array and for e.g -------$main_json['shopname'] = $_SESSION['json_str'] add this line here and in the below line pass $main_json instead of SESSION value got it??
+	fwrite($file, json_encode($_SESSION['json_str']));
 	fclose($file);
 	header("location:javascript://history.go(-1)");
 ?>
